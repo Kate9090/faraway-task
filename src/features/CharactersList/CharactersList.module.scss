@@ -1,0 +1,8 @@
+.CharactersList {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__Card {
+    margin: 0 16px 16px 0;
+  }
+}
