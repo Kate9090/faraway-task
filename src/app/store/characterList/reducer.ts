@@ -10,7 +10,7 @@ export const initialState: CharacterListState = {
 	total: 1,
 };
 
-const reducer: Reducer<CharacterListState> = (state = initialState, action: CharactersAction) => {
+const reducer: Reducer<CharacterListState> = (state = initialState, action: CharactersAction): CharacterListState => {
   switch (action.type) {
     case CharactersActionTypes.FETCH_CHARACTERS_REQUEST: {
       return { ...state, loading: true };
@@ -38,5 +38,20 @@ const reducer: Reducer<CharacterListState> = (state = initialState, action: Char
     }
   }
 };
+
+export const setPageAction = (payload: number) => ({
+	type: CharactersActionTypes.SET_PAGE,
+	payload,
+})
+
+export const setSearchNameAction = (payload: string) => ({
+	type: CharactersActionTypes.SET_SEARCHED_NAME,
+	payload,
+})
+
+export const getSearchedCharactersAction = (payload: any[]) => ({
+	type: CharactersActionTypes.FETCH_CHARACTERS_SEARCH_REQUEST,
+	payload,
+})
 
 export { reducer as characterListReducer };

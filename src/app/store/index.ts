@@ -5,7 +5,9 @@ import {rootReducer} from './characterList';
 
 
 export const store = configureStore({
-	reducer: rootReducer, middleware: [thunk]  //routerMiddleware(history)
+	reducer: rootReducer,
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 
