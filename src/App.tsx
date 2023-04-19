@@ -7,11 +7,15 @@ import {store} from 'app/store';
 
 // const history = createBrowserHistory();
 
-// import { Provider } from "react-redux";
+import { Provider } from "react-redux";
 
 const App: React.FC = () => {
   return (
-    <Routing />
+    <Provider store={store}>
+      <Routing />
+    </Provider>
+    
+
   );
 }
 

@@ -2,54 +2,52 @@ import React, {useEffect, useState} from 'react';
 
 import { Pagination, List } from 'antd';
 
-import Card from 'entities/Card/Card';
 import {ICardProps} from 'entities/Card/Card';
+import useTypedSelector from 'hooks/useTypedSelector';
 
-import styles from 'features/CharactersList/CharactersList.module.scss';
+import styles from './CharactersList.module.scss';
+// import { useDispatch } from 'react-redux';
+import { fetchCharacterRequest, fetchCharacterSearchRequest } from 'app/store/characterList/action';
+import { useAppDispatch } from 'hooks/useAppDispatch';
+import { CharactersActionTypes } from 'app/store/characterList/types';
 
-const url = "https://swapi.dev/api/people";
 
 const CharactersList = () => {
-	const [charactersData, setData] = useState([]);
-	const [page, setPage] = useState<number>(1);
-	const [total, setTotal] = useState<number>(0);
+	// const [charactersData, setData] = useState([]);
+	// const [page, setPage] = useState<number>(1);
+	// const [total, setTotal] = useState<number>(0);
+	const dispatch = useAppDispatch();
+
+	const {searchedName: search, loading, data: charactersData, page, total} = useTypedSelector(state => state.characterList);
 
 	useEffect(() => {
-		const dataFetch = async () => {
-			const dataFromFetch = await (await fetch(`${url}/?page=${page}`)).json();
-			
-			setTotal(dataFromFetch.count);
+		if (search) {
+			dispatch(fetchCharacterSearchRequest(search));
+		} else {
+			dispatch(fetchCharacterRequest(page))
+		}
+	}, [page, search]);
 
-      // const dataWithPagination = dataFromFetch.slice(
-      //   page * 10,
-      //   (page + 1) * 10
-      // );
-
-      setData(dataFromFetch.results);
-    };
-
-    dataFetch();
-	}, []);
+	const handlePageChange = (page: number) => {
+		dispatch({
+			type: CharactersActionTypes.SET_PAGE,
+			payload: page
+		});
+	}
 
   return (
-		
-
 		<>	
-		{/* <div className={styles.CharactersList}> */}
-			{/* {charactersData?.map((item: ICardProps) => (
-			<div key={item?.name} className={styles.CharactersList__Card}>
-				<Card name={item?.name} height={item.height} mass={item.mass} birth_year={item.birth_year} />
-			</div>))} */}
-			<List
-				size="small"
-				// header={<div>Header</div>}
-				// footer={<div>Footer</div>}
-				bordered
-				dataSource={charactersData}
-				renderItem={(item: ICardProps) => <List.Item>{item.name}</List.Item>}
-			/>
+			<div className={styles.CharactersList}>
+				{loading && <div className={styles.CharactersList__Loading}>Loading ....</div>}
+				<List
+					size="small"
+					bordered
+					dataSource={charactersData}
+					renderItem={(item: ICardProps) => <List.Item>{item.name}</List.Item>}
+				/>
+			</div>
 
-			<Pagination defaultCurrent={page} total={total} />;
+			<Pagination size="small" defaultCurrent={page} total={total} onChange={handlePageChange} />
 		</>
 	)
 }
