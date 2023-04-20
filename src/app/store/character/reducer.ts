@@ -4,7 +4,8 @@ import { ICharacter, CharacterActionTypes, CharacterState, CharacterAction } fro
 export const initialState: CharacterState = {
 	data: {} as ICharacter,
   errors: undefined,
-  loading: false,
+	loading: false,
+	cacheCharacter: {},
 };
 
 const reducer: Reducer<CharacterState> = (state = initialState, action: CharacterAction): CharacterState => {
@@ -21,6 +22,15 @@ const reducer: Reducer<CharacterState> = (state = initialState, action: Characte
     case CharacterActionTypes.UPDATE_CHARACTER: {
         return { ...state, data: {...state.data, ...action.payload},  }
 		}
+		case CharacterActionTypes.CACHE_DATA:
+      const { cacheKey, data } = action.payload;
+      return {
+        ...state,
+        cacheCharacter: {
+          ...state.cacheCharacter,
+          [cacheKey]: data,
+        }
+      };
     default: {
       return state;
     }

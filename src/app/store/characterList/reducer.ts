@@ -8,6 +8,7 @@ export const initialState: CharacterListState = {
 	searchedName: '',
 	page: 1,
 	total: 1,
+	cache: {},
 };
 
 const reducer: Reducer<CharacterListState> = (state = initialState, action: CharactersAction): CharacterListState => {
@@ -33,6 +34,18 @@ const reducer: Reducer<CharacterListState> = (state = initialState, action: Char
 		case CharactersActionTypes.SET_TOTAL: {
 			return { ...state, total: action.payload }
 		}
+		case CharactersActionTypes.CACHE_DATA:
+      const { cacheKey, data: {data, total} } = action.payload;
+      return {
+        ...state,
+        cache: {
+          ...state.cache,
+          [cacheKey]: {
+						data,
+						total,
+					}
+        }
+      };
     default: {
       return state;
     }

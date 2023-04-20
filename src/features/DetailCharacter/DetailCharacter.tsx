@@ -8,6 +8,7 @@ import styles from './index.module.scss';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import useTypedSelector from 'hooks/useTypedSelector';
 import { fetchCharacterRequest, updateCharacter } from 'app/store/character/action';
+import { ICharacter } from 'app/store/character/types';
 
 
 const DetailCharacter = () => {
@@ -16,7 +17,6 @@ const DetailCharacter = () => {
 	const {id} = useParams();
 
 	const { data: person } = useTypedSelector(state => state.character);
-	console.log(person)
 
 	const [form] = useForm();
 
@@ -30,8 +30,8 @@ const DetailCharacter = () => {
 		form.setFieldsValue({...person});
 	}, [person])
 	
-	const onFinish = (values: any) => {
-		dispatch(updateCharacter(values));
+	const onFinish = (values: ICharacter) => {
+		id && dispatch(updateCharacter(values, id));
 	};
 	
   return (
@@ -45,7 +45,7 @@ const DetailCharacter = () => {
       <Layout.Content className={styles.DetailCharacter}>
 				<Form form={form} onFinish={onFinish} initialValues={person}>
 					<Form.Item name="name" label="Name" rules={[{ required: true }]}>
-						<Input maxLength={36} defaultValue={person?.name} />
+						<Input maxLength={36} />
 					</Form.Item>
 					<Form.Item name="height" label="Height" rules={[{ required: true }]}>
 						<Input maxLength={36} />
@@ -69,9 +69,11 @@ const DetailCharacter = () => {
 						<Input maxLength={36} />
 					</Form.Item>
 					<Form.Item>
-						<Button type="primary" htmlType="submit">
-							Save
-						</Button>
+						<Row justify="center">
+							<Button type="primary" htmlType="submit">
+								Save
+							</Button>
+						</Row>
 					</Form.Item>
 				</Form>
       </Layout.Content>

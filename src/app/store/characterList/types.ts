@@ -14,6 +14,7 @@ export enum CharactersActionTypes {
 	SET_SEARCHED_NAME = "SET_SEARCHED_NAME",
 	SET_PAGE = "SET_PAGE",
 	SET_TOTAL = "SET_TOTAL",
+	CACHE_DATA = "CACHE_DATA",
 }
 
 export interface CharacterListState {
@@ -23,6 +24,12 @@ export interface CharacterListState {
 	searchedName: string;
 	page: number;
 	total: number;
+	cache: any;
+}
+
+interface CacheDataAction {
+	type: CharactersActionTypes.CACHE_DATA,
+	payload: any;
 }
 
 interface FetchCharacterAction {
@@ -58,5 +65,5 @@ interface SetTotalAction {
 	payload: number;
 }
 
-export type CharactersAction = FetchCharacterAction | FetchCharacterSearchAction |
+export type CharactersAction = FetchCharacterAction | FetchCharacterSearchAction | CacheDataAction |
  FetchCharacterSuccessAction | FetchCharacterErrorAction | SetSearchedNameAction | SetPageAction | SetTotalAction;

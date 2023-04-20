@@ -16,12 +16,19 @@ export enum CharacterActionTypes {
   FETCH_CHARACTER_SUCCESS = "FETCH_CHARACTER_SUCCESS",
 	FETCH_CHARACTER_ERROR = "FETCH_CHARACTER_ERROR",
 	UPDATE_CHARACTER = "UPDATE_CHARACTER",
+	CACHE_DATA = "CACHE_DATA",
 }
 
 export interface CharacterState {
 	readonly loading: boolean;
 	data: ICharacter;
 	readonly errors?: string;
+	cacheCharacter: any;
+}
+
+interface CacheDataAction {
+	type: CharacterActionTypes.CACHE_DATA,
+	payload: any;
 }
 
 interface FetchCharacterAction {
@@ -43,5 +50,5 @@ interface SetUpdateCharacterAction {
 	payload: ICharacter;
 }
 
-export type CharacterAction = FetchCharacterAction  |
+export type CharacterAction = FetchCharacterAction  | CacheDataAction |
  FetchCharacterSuccessAction | FetchCharacterErrorAction | SetUpdateCharacterAction;
