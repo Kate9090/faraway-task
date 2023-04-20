@@ -1,6 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
-import {rootReducer} from './characterList';
+import {rootReducer} from './reducer';
 // import { routerMiddleware } from 'connected-react-router';
 
 

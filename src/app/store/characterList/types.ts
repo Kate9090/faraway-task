@@ -2,7 +2,8 @@ export interface ICardProps {
   name: string;
   birth_year: string;
   height: string;
-  mass: string;
+	mass: string;
+	url: string;
 }
 
 export enum CharactersActionTypes {

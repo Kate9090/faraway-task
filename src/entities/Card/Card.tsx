@@ -7,6 +7,7 @@ export interface ICardProps {
   birth_year: string;
   height: string;
   mass: string;
+  url: string;
 }
 
 const CardEntity: React.FC<ICardProps> = ({name, birth_year, height, mass}) => (

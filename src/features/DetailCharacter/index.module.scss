@@ -1,0 +1,14 @@
+.DetailCharacter {
+	margin-right: 64px;
+	label {
+		display: flex;
+		justify-content: flex-end;
+		width: 150px;
+		text-align: right;
+		margin-right: 16px;
+	}
+
+	&__Input {
+		max-width: 300px;
+	}
+}
