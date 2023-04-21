@@ -14,10 +14,9 @@ const CharacterFilter = () => {
 	const handleSearch = (name: string) => {
 		dispatch(setSearchNameAction(name));
 	}
+
   return (
-		<>
-			<Search placeholder="Input search character's name" onSearch={handleSearch} style={{ width: 300 }} />
-		</>
+		<Search placeholder="Input search character's name" onSearch={handleSearch} style={{ width: 300 }} />
 	)
 }
 

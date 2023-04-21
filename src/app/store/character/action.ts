@@ -27,7 +27,7 @@ export const fetchCharacterRequest = (id: string) => {
 					});
 
 					dispatch({
-						type: CharacterActionTypes.CACHE_DATA,
+						type: CharacterActionTypes.CACHE_CHARACTER_DATA,
 						payload: {cacheKey: id, data: dataFromFetch},
 					});
 				}
@@ -50,7 +50,7 @@ export const updateCharacter = (data: ICharacter, id: string) => {
         payload: data
 			});
 			dispatch({
-				type: CharacterActionTypes.CACHE_DATA,
+				type: CharacterActionTypes.CACHE_CHARACTER_DATA,
 				payload: {cacheKey: id, data},
 			});
 		}

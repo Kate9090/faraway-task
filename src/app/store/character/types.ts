@@ -16,7 +16,7 @@ export enum CharacterActionTypes {
   FETCH_CHARACTER_SUCCESS = "FETCH_CHARACTER_SUCCESS",
 	FETCH_CHARACTER_ERROR = "FETCH_CHARACTER_ERROR",
 	UPDATE_CHARACTER = "UPDATE_CHARACTER",
-	CACHE_DATA = "CACHE_DATA",
+	CACHE_CHARACTER_DATA = "CACHE_CHARACTER_DATA",
 }
 
 export interface CharacterState {
@@ -27,7 +27,7 @@ export interface CharacterState {
 }
 
 interface CacheDataAction {
-	type: CharacterActionTypes.CACHE_DATA,
+	type: CharacterActionTypes.CACHE_CHARACTER_DATA,
 	payload: any;
 }
 
