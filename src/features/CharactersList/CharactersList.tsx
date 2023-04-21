@@ -22,7 +22,11 @@ const CharactersList = () => {
 		if (dispatch && search) {
 			dispatch(fetchCharacterSearchRequest(search));
 		} else {
-			dispatch && dispatch(fetchCharacterRequest(page))
+      const getData = setTimeout(() => {
+        dispatch && page && dispatch(fetchCharacterRequest(page))
+      }, 100)
+
+    return () => clearTimeout(getData);
 		}
   }, [page, search, dispatch]);
   
@@ -33,7 +37,7 @@ const CharactersList = () => {
         setOpen(false);
       }, 3000);
 
-      return () => clearTimeout(timeout);
+      return (() => clearTimeout(timeout));
     }
   }, [error])
 
