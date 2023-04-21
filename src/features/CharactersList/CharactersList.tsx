@@ -1,29 +1,41 @@
 import React, {useEffect, useState} from 'react';
 
-import { Pagination, List } from 'antd';
+import { Pagination, Modal, List, Space, Spin } from 'antd';
+import { ExclamationCircleFilled } from '@ant-design/icons';
 
-import {ICardProps} from 'entities/Card/Card';
 import useTypedSelector from 'hooks/useTypedSelector';
 
 import styles from './CharactersList.module.scss';
-import { fetchCharacterRequest, fetchCharacterSearchRequest } from 'app/store/characterList/action';
+import { fetchCharacterRequest, fetchCharacterSearchRequest } from 'store/characterList/action';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { CharactersActionTypes } from 'app/store/characterList/types';
+import { CharactersActionTypes } from 'store/characterList/types';
 import { Link } from 'react-router-dom';
-
+import { ICharacter } from 'store/character/types';
 
 const CharactersList = () => {
-	const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  const [open, setOpen] = useState<boolean>(false);
 
-	const {searchedName: search, loading, data: charactersData, page, total} = useTypedSelector(state => state.characterList);
+	const {searchedName: search, loading, data: charactersData, page, total, error} = useTypedSelector(state => state.characterList);
 
 	useEffect(() => {
-		if (search) {
+		if (dispatch && search) {
 			dispatch(fetchCharacterSearchRequest(search));
 		} else {
-			dispatch(fetchCharacterRequest(page))
+			dispatch && dispatch(fetchCharacterRequest(page))
 		}
-	}, [page, search]);
+  }, [page, search, dispatch]);
+  
+  useEffect(() => {
+    if (error) {
+      setOpen(true);
+      const timeout = setTimeout(() => {
+        setOpen(false);
+      }, 3000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [error])
 
 	const handlePageChange = (page: number) => {
 		dispatch({
@@ -34,24 +46,37 @@ const CharactersList = () => {
 
 	const getId = (url: string) => {
 		return url.match(/(\d)+\/$/)![0].replace('/', '');
-	}
+  }
 
   return (
 		<>	
 			<div className={styles.CharactersList}>
-				{loading && <div className={styles.CharactersList__Loading}>Loading ....</div>}
+        {error && (
+          <Modal 
+            title = {<><ExclamationCircleFilled  style={{ color: 'red' }}/> {error}</>}
+            open={open}
+            footer={null}
+          />
+        )}
+				{loading && (
+          <div className={styles.CharactersList__Loading}>
+            <Space direction="vertical" style={{ width: '100%' }}>
+              <Spin tip="Loading..." />
+            </Space>
+          </div>
+        )}
 				<List
 					size="small"
 					bordered
 					dataSource={charactersData}
-					renderItem={(item: ICardProps) => (
+					renderItem={(item: ICharacter) => (
 						<List.Item>
 							<Link to={`/${getId(item.url)}`}>{item.name}</Link>
 						</List.Item>)}
 				/>
 			</div>
 
-			<Pagination size="small" defaultCurrent={page} total={total} onChange={handlePageChange} />
+			<Pagination size="small" defaultCurrent={page} total={total} onChange={handlePageChange} showSizeChanger={false} />
 		</>
 	)
 }

@@ -3,9 +3,9 @@ import { Reducer } from "redux";
 import { ICharacter, CharacterActionTypes, CharacterState, CharacterAction } from "./types";
 export const initialState: CharacterState = {
 	data: {} as ICharacter,
-  errors: undefined,
+  error: undefined,
 	loading: false,
-	cacheCharacter: {},
+  cacheCharacter: {},
 };
 
 const reducer: Reducer<CharacterState> = (state = initialState, action: CharacterAction): CharacterState => {
@@ -17,7 +17,7 @@ const reducer: Reducer<CharacterState> = (state = initialState, action: Characte
       return { ...state, loading: false, data: action.payload };
     }
     case CharacterActionTypes.FETCH_CHARACTER_ERROR: {
-      return { ...state, loading: false, errors: action.payload };
+      return { ...state, loading: false, error: action.payload };
     }
     case CharacterActionTypes.UPDATE_CHARACTER: {
         return { ...state, data: {...state.data, ...action.payload},  }

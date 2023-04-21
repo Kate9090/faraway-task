@@ -1,4 +1,4 @@
-import { Layout, Row, Typography } from 'antd';
+import { Layout } from 'antd';
 import DetailCharacter from 'features/DetailCharacter/DetailCharacter';
 import React from 'react';
 

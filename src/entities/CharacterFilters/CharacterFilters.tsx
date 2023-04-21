@@ -1,10 +1,8 @@
 import React from 'react';
-// import {useDispatch } from 'react-redux'
 
 import {Input} from 'antd';
-import { setSearchedName } from 'app/store/characterList/action';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { setSearchNameAction } from 'app/store/characterList/reducer';
+import { setSearchNameAction } from 'store/characterList/reducer';
 
 const { Search } = Input;
 

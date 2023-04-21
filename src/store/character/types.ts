@@ -20,9 +20,9 @@ export enum CharacterActionTypes {
 }
 
 export interface CharacterState {
-	readonly loading: boolean;
+  readonly loading: boolean;
 	data: ICharacter;
-	readonly errors?: string;
+	readonly error?: string;
 	cacheCharacter: any;
 }
 

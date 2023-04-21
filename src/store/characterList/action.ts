@@ -1,8 +1,7 @@
 import { CharactersAction, CharactersActionTypes } from "./types";
 
 import { Dispatch } from "redux";
-
-const url = "https://swapi.dev/api/people";
+import { API } from "common/API";
 
 export const fetchCharacterRequest = (page: number) => {
   return async (dispatch: Dispatch<CharactersAction>, getState: any) => {
@@ -22,7 +21,7 @@ export const fetchCharacterRequest = (page: number) => {
 					type: CharactersActionTypes.FETCH_CHARACTERS_REQUEST,
 				});
 				const dataFetch = async () => {
-					const dataFromFetch = await (await fetch(`${url}/?page=${page}`)).json();
+					const dataFromFetch = await (await fetch(`${API.people}/?page=${page}`)).json();
 					dispatch({
 						type: CharactersActionTypes.FETCH_CHARACTERS_SUCCESS,
 						payload: dataFromFetch.results
@@ -36,7 +35,12 @@ export const fetchCharacterRequest = (page: number) => {
 						payload: {cacheKey: page, data: {data: dataFromFetch.results, total: dataFromFetch.count}},
 					})
 				}
-				dataFetch();
+				dataFetch().catch(() => {
+          dispatch({
+            type: CharactersActionTypes.FETCH_CHARACTERS_ERROR,
+            payload: 'Что-то пошло не так ..'
+          });
+        });;
 			}
     } catch (e) {
       dispatch({
@@ -66,7 +70,7 @@ export const fetchCharacterSearchRequest = (name: string) => {
         type: CharactersActionTypes.FETCH_CHARACTERS_SEARCH_REQUEST,
 			});
 			const dataFetch = async () => {
-				const dataFromFetch = await (await fetch(`${url}/?&search=${name}`)).json();
+				const dataFromFetch = await (await fetch(`${API.people}/?&search=${name}`)).json();
 				dispatch({
 					type: CharactersActionTypes.FETCH_CHARACTERS_SUCCESS,
 					payload: dataFromFetch.results
@@ -80,7 +84,12 @@ export const fetchCharacterSearchRequest = (name: string) => {
 					payload: {cacheKey: name, data: {data: dataFromFetch.results, total: dataFromFetch.count}},
 				})
 			}
-			dataFetch();
+			dataFetch().catch(() => {
+        dispatch({
+          type: CharactersActionTypes.FETCH_CHARACTERS_ERROR,
+          payload: 'Не удалось загрузить данные...'
+        });
+      });
 			}
     } catch (e) {
       dispatch({

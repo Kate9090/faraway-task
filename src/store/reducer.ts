@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
-import { characterListReducer } from "app/store/characterList/reducer";
-import { characterReducer } from "app/store/character/reducer";
+import { characterListReducer } from "store/characterList/reducer";
+import { characterReducer } from "store/character/reducer";
 
 export const rootReducer = combineReducers({
     characterList: characterListReducer,

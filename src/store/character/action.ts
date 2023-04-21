@@ -1,13 +1,11 @@
 import { CharacterAction, CharacterActionTypes, ICharacter } from "./types";
 
 import { Dispatch } from "redux";
-
-const url = "https://swapi.dev/api/people";
+import { API } from "common/API";
 
 export const fetchCharacterRequest = (id: string) => {
   return async (dispatch: Dispatch<CharacterAction>, getState: any) => {
 		const state = getState();
-		console.log(state)
 		try {
 			if (state.character.cacheCharacter![id]) {
 				dispatch({
@@ -19,7 +17,7 @@ export const fetchCharacterRequest = (id: string) => {
 					type: CharacterActionTypes.FETCH_CHARACTER_REQUEST,
 				});
 				const dataFetch = async () => {
-					const dataFromFetch = await (await fetch(`${url}/${id}`)).json();
+					const dataFromFetch = await (await fetch(`${API.people}/${id}`)).json();
 					
 					dispatch({
 						type: CharacterActionTypes.FETCH_CHARACTER_SUCCESS,

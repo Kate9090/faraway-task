@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import {store} from 'app/store';
-// import { createBrowserHistory } from 'history';
-
-// const history = createBrowserHistory();
+import {store} from 'store';
 import App from 'app/App';
 import { Provider } from "react-redux";
 
@@ -19,7 +16,6 @@ root.render(
     <Provider store={store}>
       <App />
     </Provider>
-    
   </React.StrictMode>
 );
 

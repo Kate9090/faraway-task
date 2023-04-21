@@ -1,10 +1,4 @@
-export interface ICardProps {
-  name: string;
-  birth_year: string;
-  height: string;
-	mass: string;
-	url: string;
-}
+import { ICharacter } from "store/character/types";
 
 export enum CharactersActionTypes {
 	FETCH_CHARACTERS_REQUEST = "FETCH_CHARACTERS_REQUEST",
@@ -19,8 +13,8 @@ export enum CharactersActionTypes {
 
 export interface CharacterListState {
 	readonly loading: boolean;
-	readonly data: ICardProps[];
-	readonly errors?: string;
+	readonly data: ICharacter[];
+	readonly error?: string;
 	searchedName: string;
 	page: number;
 	total: number;

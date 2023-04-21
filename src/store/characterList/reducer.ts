@@ -3,7 +3,7 @@ import { Reducer } from "redux";
 import { CharactersActionTypes, CharacterListState, CharactersAction } from "./types";
 export const initialState: CharacterListState = {
 	data: [],
-  errors: undefined,
+  error: undefined,
   loading: false,
 	searchedName: '',
 	page: 1,
@@ -23,7 +23,7 @@ const reducer: Reducer<CharacterListState> = (state = initialState, action: Char
       return { ...state, loading: false, data: action.payload };
     }
     case CharactersActionTypes.FETCH_CHARACTERS_ERROR: {
-      return { ...state, loading: false, errors: action.payload };
+      return { ...state, loading: false, error: action.payload };
     }
     case CharactersActionTypes.SET_SEARCHED_NAME: {
         return { ...state, searchedName: action.payload, total: 1, page: 1 }
