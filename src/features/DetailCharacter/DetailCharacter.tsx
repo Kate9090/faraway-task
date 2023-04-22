@@ -33,11 +33,7 @@ const DetailCharacter = () => {
 
 	useEffect(() => {
 		if (id && dispatch) {
-      const getData = setTimeout(() => {
-        dispatch(fetchCharacterRequest(id));
-      }, 100)
-
-      return () => clearTimeout(getData);
+      dispatch(fetchCharacterRequest(id));
 		}
   }, [id, dispatch]);
   

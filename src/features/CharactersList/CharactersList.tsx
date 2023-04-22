@@ -22,11 +22,7 @@ const CharactersList = () => {
 		if (dispatch && search) {
 			dispatch(fetchCharacterSearchRequest(search));
 		} else {
-      const getData = setTimeout(() => {
-        dispatch && page && dispatch(fetchCharacterRequest(page))
-      }, 100)
-
-    return () => clearTimeout(getData);
+      dispatch && page && dispatch(fetchCharacterRequest(page));
 		}
   }, [page, search, dispatch]);
   
@@ -80,7 +76,7 @@ const CharactersList = () => {
 				/>
 			</div>
 
-			<Pagination size="small" defaultCurrent={page} total={total} onChange={handlePageChange} showSizeChanger={false} />
+			<Pagination data-testid="pagination" size="small" defaultCurrent={page} total={total} onChange={handlePageChange} showSizeChanger={false} />
 		</>
 	)
 }
