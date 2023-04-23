@@ -25,7 +25,7 @@ const DetailCharacter = () => {
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState<boolean>(false);
 
-  const {id} = useParams();
+  const { id } = useParams();
 
 	const { data: person, loading, error } = useTypedSelector(state => state.character);
 

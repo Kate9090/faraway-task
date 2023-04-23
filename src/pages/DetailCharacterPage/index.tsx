@@ -1,6 +1,6 @@
+import React from 'react';
 import { Layout } from 'antd';
 import DetailCharacter from 'features/DetailCharacter/DetailCharacter';
-import React from 'react';
 
 import styles from './index.module.scss';
 

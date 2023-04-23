@@ -1,3 +1,3 @@
 export const API = {
-    people: 'https://swapi.dev/api/people',
+	people: 'https://swapi.dev/api/people',
 }

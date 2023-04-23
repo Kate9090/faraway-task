@@ -11,12 +11,13 @@ import { useAppDispatch } from 'hooks/useAppDispatch';
 import { CharactersActionTypes } from 'store/characterList/types';
 import { Link } from 'react-router-dom';
 import { ICharacter } from 'store/character/types';
+import { getId } from './helpers';
 
 const CharactersList = () => {
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState<boolean>(false);
 
-	const {searchedName: search, loading, data: charactersData, page, total, error} = useTypedSelector(state => state.characterList);
+	const { searchedName: search, loading, data: charactersData, page, total, error } = useTypedSelector(state => state.characterList);
 
 	useEffect(() => {
 		if (dispatch && search) {
@@ -43,10 +44,6 @@ const CharactersList = () => {
 			payload: page
 		});
 	}
-
-	const getId = (url: string) => {
-		return url.match(/(\d)+\/$/)![0].replace('/', '');
-  }
 
   return (
 		<>	

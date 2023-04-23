@@ -1,4 +1,5 @@
 import { Reducer } from "redux";
+import { ICharacter } from "store/character/types";
 
 import { CharactersActionTypes, CharacterListState, CharactersAction } from "./types";
 export const initialState: CharacterListState = {
@@ -55,16 +56,16 @@ const reducer: Reducer<CharacterListState> = (state = initialState, action: Char
 export const setPageAction = (payload: number) => ({
 	type: CharactersActionTypes.SET_PAGE,
 	payload,
-})
+});
 
 export const setSearchNameAction = (payload: string) => ({
 	type: CharactersActionTypes.SET_SEARCHED_NAME,
 	payload,
-})
+});
 
-export const getSearchedCharactersAction = (payload: any[]) => ({
+export const getSearchedCharactersAction = (payload: ICharacter[]) => ({
 	type: CharactersActionTypes.FETCH_CHARACTERS_SEARCH_REQUEST,
 	payload,
-})
+});
 
 export { reducer as characterListReducer };
