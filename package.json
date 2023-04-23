@@ -1,6 +1,6 @@
 {
-  "name": "faraway",
   "homepage": "http://Kate9090.github.io/faraway-task",
+  "name": "faraway",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
